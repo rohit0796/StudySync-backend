@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const schema = require('../server/Models/dbschema')
+const schema = require('./Models/dbschema')
 const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 const multer = require('multer')
