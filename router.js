@@ -17,10 +17,11 @@ var ObjectId = require('mongodb').ObjectID;
 //     storage: Storage
 // })
 router.post('/register', async (req, res) => {
+     console.log(req);
     try {
         const { name, email, redgno, mob, dob, password, branch, hobbies, gender } = req.body;
         // const imagePath = req.file.path;
-        const email_user = await schema.findOne({ email: req.body.email })
+        const email_user = await schema.findOne({ email: email })
         if(email_user)
         {
             res.status(422).json({ error: 'Email Already Exists'});
