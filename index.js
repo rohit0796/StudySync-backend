@@ -9,8 +9,6 @@ datb = "mongodb+srv://rohit:Rrohit@cluster0.iz0xyeb.mongodb.net/?retryWrites=tru
 dotenv.config()
 mongoose.connect(datb, {
    useNewUrlParser: true, // Corrected option name
-    useUnifiedTopology: true, // Add this option to avoid deprecation warning
-    useFindAndModify: false,
 },6000000)
 .then(console.log("connected to server"))
 .catch((err) => console.log(err));
