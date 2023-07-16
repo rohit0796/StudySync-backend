@@ -18,8 +18,8 @@ var ObjectId = require('mongodb').ObjectID;
 // })
 router.post('/register', async (req, res) => {
      console.log(req.body);
+        const { name, email, redgno, mob, dob, password, branch, gender } = req.body;
     try {
-        const { name, email, redgno, mob, dob, password, branch, hobbies, gender } = req.body;
         // const imagePath = req.file.path;
         const email_user = await schema.findOne({ email: email })
         if(email_user)
@@ -38,7 +38,6 @@ router.post('/register', async (req, res) => {
             // },
             password,
             branch,
-            hobbies,
             gender
         });
 
