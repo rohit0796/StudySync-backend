@@ -76,7 +76,7 @@ router.get('/submit/update/:id', async (req, res) => {
 
 })
 
-router.post('/submit/updates', upload.single('ProfilePhoto'), async (req, res) => {
+router.post('/submit/updates', async (req, res) => {
     try {
         const { name, email, redgno, mob, dob, password, branch, hobbies, gender } = req.body;
 
@@ -92,13 +92,13 @@ router.post('/submit/updates', upload.single('ProfilePhoto'), async (req, res) =
             gender
         };
 
-        if (req.file) {
-            const imagePath = req.file.path;
-            us.image = {
-                data: fs.readFileSync(imagePath),
-                contentType: req.file.mimetype
-            };
-        }
+        // if (req.file) {
+        //     const imagePath = req.file.path;
+        //     us.image = {
+        //         data: fs.readFileSync(imagePath),
+        //         contentType: req.file.mimetype
+        //     };
+        // }
 
         const token = req.headers['x-access-token'];
 
@@ -116,11 +116,12 @@ router.post('/submit/updates', upload.single('ProfilePhoto'), async (req, res) =
     } catch (error) {
         console.log(error);
         res.json({ status: 'error', error: 'File upload error' });
-    } finally {
-        // Delete the uploaded file after saving it in the database
-        if (req.file)
-            fs.unlinkSync(req.file.path);
-    }
+    } 
+    // finally {
+    //     // Delete the uploaded file after saving it in the database
+    //     if (req.file)
+    //         fs.unlinkSync(req.file.path);
+    // }
 });
 
 
