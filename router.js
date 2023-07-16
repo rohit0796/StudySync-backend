@@ -18,6 +18,7 @@ var ObjectId = require('mongodb').ObjectID;
 // })
 router.post('/register', async (req, res) => {
     try {
+        const { name, email, redgno, mob, dob, password, branch, hobbies, gender } = req.body;
         // const imagePath = req.file.path;
         const email_user = await schema.findOne({ email: req.body.email })
         if(email_user)
@@ -25,19 +26,19 @@ router.post('/register', async (req, res) => {
             res.status(422).json({ error: 'Email Already Exists'});
         }
         const user = new schema({
-            name:req.body.name,
-            email:req.body.email,
-            redgno:req.body.redgno,
-            mob:req.body.mob,
-            dob:req.body.dob,
+            name,
+            email,
+            redgno,
+            mob,
+            dob,
             // image: {
             //     data: fs.readFileSync(imagePath),
             //     contentType: req.file.mimetype
             // },
-            password:req.body.password,
-            branch:req.body.branch,
-            hobbies:req.body.hobbies,
-            gender:req.body.gender,
+            password,
+            branch,
+            hobbies,
+            gender
         });
 
         await user.save();
