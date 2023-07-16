@@ -4,22 +4,22 @@ const schema = require('./Models/dbschema')
 const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 const multer = require('multer')
-const fs = require('fs')
+// const fs = require('fs')
 const ImageModel = require("./Models/ImageModel")
 var ObjectId = require('mongodb').ObjectID;
-const Storage = multer.diskStorage({
-    destination: 'uploads',
-    filename: (req, file, cb) => {
-        cb(null, file.originalname)
-    }
-})
-const upload = multer({
-    storage: Storage
-})
-router.post('/register', upload.single('ProfilePhoto'), async (req, res) => {
+// const Storage = multer.diskStorage({
+//     destination: 'uploads',
+//     filename: (req, file, cb) => {
+//         cb(null, file.originalname)
+//     }
+// })
+// const upload = multer({
+//     storage: Storage
+// })
+router.post('/register', async (req, res) => {
     try {
         const { name, email, redgno, mob, dob, password, branch, hobbies, gender } = req.body;
-        const imagePath = req.file.path;
+        // const imagePath = req.file.path;
 
         const user = new schema({
             name,
@@ -27,10 +27,10 @@ router.post('/register', upload.single('ProfilePhoto'), async (req, res) => {
             redgno,
             mob,
             dob,
-            image: {
-                data: fs.readFileSync(imagePath),
-                contentType: req.file.mimetype
-            },
+            // image: {
+            //     data: fs.readFileSync(imagePath),
+            //     contentType: req.file.mimetype
+            // },
             password,
             branch,
             hobbies,
@@ -43,11 +43,7 @@ router.post('/register', upload.single('ProfilePhoto'), async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: 'Internal Server Error' });
-    } finally {
-        // Delete the uploaded file after saving it in the database
-        if (req.file.path)
-            fs.unlinkSync(req.file.path);
-    }
+    } 
 });
 
 
@@ -145,19 +141,19 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.post('/upload', (req, res) => {
-    upload(req, res, (err) => {
-        if (err) { console.log(err) }
-        else {
-            const newImage = new ImageModel({
-                name: req.body.name
-            })
-            newImage.save()
-                .then(() => res.send("Successfully uploaded"))
-                .catch((err) => console.log(err))
-        }
-    })
-})
+// router.post('/upload', (req, res) => {
+//     upload(req, res, (err) => {
+//         if (err) { console.log(err) }
+//         else {
+//             const newImage = new ImageModel({
+//                 name: req.body.name
+//             })
+//             newImage.save()
+//                 .then(() => res.send("Successfully uploaded"))
+//                 .catch((err) => console.log(err))
+//         }
+//     })
+// })
 
 router.post('/add-event', async (req, res) => {
     const token = req.headers['x-access-token'];
