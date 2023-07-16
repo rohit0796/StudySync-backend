@@ -18,23 +18,21 @@ var ObjectId = require('mongodb').ObjectID;
 // })
 router.post('/register', async (req, res) => {
     try {
-        const { name, email, redgno, mob, dob, password, branch, hobbies, gender } = req.body;
         // const imagePath = req.file.path;
-
         const user = new schema({
-            name,
-            email,
-            redgno,
-            mob,
-            dob,
+            name:req.body.name,
+            email:req.body.email,
+            redgno:req.body.redgno,
+            mob:req.body.mob,
+            dob:req.body.dob,
             // image: {
             //     data: fs.readFileSync(imagePath),
             //     contentType: req.file.mimetype
             // },
-            password,
-            branch,
-            hobbies,
-            gender
+            password:req.body.password,
+            branch:req.body.branch,
+            hobbies:req.body.hobbies,
+            gender:req.body.gender,
         });
 
         await user.save();
