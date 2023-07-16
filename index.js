@@ -16,7 +16,7 @@ app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 app.use(express.json())
 app.use(cors({
-  origin: 'http://localhost:3000' // Replace with your frontend origin
+  origin: 'https://studentdetails-22389.web.app' // Replace with your frontend origin
 }))
 app.use('/', urlRouter)
 const PORT= process.env.PORT|| 5000
