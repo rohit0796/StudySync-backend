@@ -4,17 +4,17 @@ const schema = new mongoose.Schema({
     name:
     {
         type: String,
-        required: true
+        // required: true
     },
     redgno:
     {
         type: Number,
-        required: true
+        // required: true
     },
     email:
     {
         type: String,
-        required: true,
+        // required: true,
         unique: true
     },
     image: {
@@ -24,7 +24,7 @@ const schema = new mongoose.Schema({
     mob:
     {
         type: Number,
-        required: true
+        // required: true
     },
     dob:
     {
@@ -53,18 +53,18 @@ const schema = new mongoose.Schema({
         {
           name: {
             type: String,
-            required: true,
+            // required: true,
           },
           attendance: [
             {
               date: {
                 type: Date,
-                required: true,
+                // required: true,
               },
               status: {
                 type: String,
                 enum: ['present', 'absent'],
-                required: true,
+                // required: true,
               },
             },
           ],
