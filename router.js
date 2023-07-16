@@ -17,7 +17,7 @@ var ObjectId = require('mongodb').ObjectID;
 //     storage: Storage
 // })
 router.post('/register', async (req, res) => {
-     console.log(req);
+     console.log(req.body);
     try {
         const { name, email, redgno, mob, dob, password, branch, hobbies, gender } = req.body;
         // const imagePath = req.file.path;
