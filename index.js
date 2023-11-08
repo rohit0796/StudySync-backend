@@ -5,7 +5,7 @@ const dotenv = require('dotenv')
 const urlRouter = require('./router')
 const bodyParser =require('body-parser')
 const cors = require('cors')
-datb = "mongodb+srv://rohit:Rrohit@cluster0.iz0xyeb.mongodb.net/test?retryWrites=true&w=majority"
+datb = "mongodb+srv://rohit:Rohit@cluster0.iz0xyeb.mongodb.net/test?retryWrites=true&w=majority"
 dotenv.config()
 mongoose.connect(datb, {
    useNewUrlParser: true, // Corrected option name
