@@ -333,30 +333,39 @@ router.post('/update-notes',async(req,res)=>{
 router.post('/attendance', async (req, res) => {
     const token = req.headers['x-access-token'];
     try {
-      const { subjectName, date, status } = req.body;
-      const decoded = jwt.verify(token, 'secret123');
+        var { subjectName, date, status } = req.body;
+        date = new Date(date)
+        const decoded = jwt.verify(token, 'secret123');
         const email = decoded.email;
         const user = await schema.findOne({ email: email });
-  
-      if (!user) {
-        return res.status(404).json({ error: 'User not found' });
-      }
-  
-      const subject = user.subjects.find((subj) => subj.name === subjectName);
-  
-      if (!subject) {
-        return res.status(404).json({ error: 'Subject not found' });
-      }
-  
-      subject.attendance.push({ date, status });
-  
-      await user.save();
-  
-      res.json({ status: 'ok' });
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const subject = user.subjects.find((subj) => subj.name === subjectName);
+
+        if (!subject) {
+            return res.status(404).json({ error: 'Subject not found' });
+        }
+        const pre = subject.attendance.find((obj) => obj.date.toDateString() == date.toDateString())
+        console.log(pre)
+        if (pre) {
+            subject.attendance.forEach((obj) => {
+                if (obj.date.toDateString() == date.toDateString())
+                    obj.status = status
+            })
+        }
+        else
+            subject.attendance.push({ date, status })
+
+        await user.save();
+
+        res.json({ status: 'ok' });
     } catch (error) {
-      console.error('Error recording attendance:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+        console.error('Error recording attendance:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
-  });
+});
 
 module.exports = router;     
